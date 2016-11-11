@@ -37,7 +37,7 @@ class MainFrame extends JFrame{
     }
     
     private MenuItem calculateMenuItem() {
-        MenuItem menuItem = new MenuItem("Execute");
+        MenuItem menuItem = new MenuItem("Calculate");
         menuItem.addActionListener(executeCalculate());
         return menuItem;
     }
