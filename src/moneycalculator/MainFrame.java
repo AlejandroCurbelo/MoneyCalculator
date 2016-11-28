@@ -1,57 +1,61 @@
 package moneycalculator;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import moneycalculator.ui.swing.SwingMoneyDisplay;
+import moneycalculator.ui.Swing.SwingMoneyDialog;
+import moneycalculator.ui.Swing.SwingMoneyDisplay;
 
 class MainFrame extends JFrame{
 
+    SwingMoneyDialog moneyDialog;
+    SwingMoneyDisplay moneyDisplay;
+    
     public MainFrame() {
-        setTitle("MoneyCalculator");
+        setTitle("Money Calculator");
+        setSize(400, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400, 400);
         setLocationRelativeTo(null);
-        setMenuBar(menuBar());
-        setLayout(new FlowLayout());
-        add(moneyDisplay());
-        
+        add(moneyDialog(), BorderLayout.NORTH);
+        add(moneyDisplay(), BorderLayout.CENTER);
+        add(toolbar(), BorderLayout.SOUTH);
         setVisible(true);
     }
 
-    private MenuBar menuBar() {
-        MenuBar menuBar = new MenuBar();
-        menuBar.add(operationMenu());
-        return menuBar;
+    private Component moneyDialog() {
+        SwingMoneyDialog swingMoneyDialog = new SwingMoneyDialog();
+        return swingMoneyDialog;
     }
 
-    private Menu operationMenu() {
-        Menu menu = new Menu("Operations");
-        menu.add(calculateMenuItem());
-        return menu;
+    private Component moneyDisplay() {
+        SwingMoneyDisplay swingMoneyDisplay = new SwingMoneyDisplay();
+        return swingMoneyDisplay;
     }
-    
-    private MenuItem calculateMenuItem() {
-        MenuItem menuItem = new MenuItem("Calculate");
-        menuItem.addActionListener(executeCalculate());
-        return menuItem;
+
+    private Component toolbar() {
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.add(calculateButton());
+        return panel;
     }
-    
-    private ActionListener executeCalculate() {
+
+    private Component calculateButton() {
+        JButton button = new JButton("Calculate");
+        button.addActionListener(calculate());
+        return button;
+    }
+
+    private ActionListener calculate() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Execute calculate...");
+                moneyDisplay.display(moneyDialog.get());
             }
         };
     }
-
-    private JPanel moneyDisplay() {
-        return new SwingMoneyDisplay();
-    }
+    
 }
