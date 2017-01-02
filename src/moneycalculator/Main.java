@@ -1,21 +1,18 @@
 package moneycalculator;
 
 import moneycalculator.control.CalculateCommand;
-import moneycalculator.model.Currency;
+import moneycalculator.persistence.CurrencyListLoader;
+import moneycalculator.persistence.ExchangeRateLoader;
+import moneycalculator.persistence.files.FileCurrencyListLoader;
+import moneycalculator.persistence.rest.RestExchangeRateLoader;
 
 public class Main {
     
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame(currencies());
-        mainFrame.add(new CalculateCommand(mainFrame.getMoneyDialog(), mainFrame.getMoneyDisplay()));
+        CurrencyListLoader currencyLoader = new FileCurrencyListLoader("currencies");
+        ExchangeRateLoader exchangeRateLoader = new RestExchangeRateLoader();
+        MainFrame mainFrame = new MainFrame(currencyLoader.currencies());
+        mainFrame.add(new CalculateCommand(mainFrame.getMoneyDialog(), mainFrame.getMoneyDisplay(), exchangeRateLoader));
     }
 
-    private static Currency[] currencies() {
-        return new Currency[]{
-            new Currency("USD","Dólar estadounidense","$"),
-            new Currency("CAD","Dólar canadiense","$"),
-            new Currency("GBP","Libra esterlina","L")
-        };
-    }
-    
 }
