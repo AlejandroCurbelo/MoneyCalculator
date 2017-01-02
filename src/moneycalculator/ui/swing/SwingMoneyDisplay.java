@@ -1,4 +1,4 @@
-package moneycalculator.ui.Swing;
+package moneycalculator.ui.swing;
 
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -13,9 +13,9 @@ public class SwingMoneyDisplay extends JPanel implements MoneyDisplay {
     @Override
     public void display(Money money) {
         this.money=money;
-        removeAll();
-        add(amount());
-        add(currency());
+        this.removeAll();
+        this.add(amount());
+        this.add(currency());
         this.updateUI();
     }
 
@@ -24,7 +24,7 @@ public class SwingMoneyDisplay extends JPanel implements MoneyDisplay {
     }
 
     private Component currency() {
-        return new JLabel(money.getCurrency().getSymbol());
+        return new JLabel(money.getCurrency().getCode());
     }
     
 }
