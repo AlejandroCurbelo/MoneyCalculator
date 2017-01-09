@@ -21,9 +21,9 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
     private final Currency[] currencies;
 
     public SwingMoneyDialog(Currency[] currencies) {
+        this.currencies = currencies;
         this.add(amount());
         this.add(currency());
-        this.currencies = currencies;
     }
 
     @Override

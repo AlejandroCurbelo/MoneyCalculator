@@ -34,7 +34,7 @@ public class CalculateCommand implements Command {
     }
 
     private double rateOf(Currency currency) {
-        return loader.load(currency, eur).getAmount();
+        return (loader.load(currency, eur)).getAmount();
     }
 
 }
